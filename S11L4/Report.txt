@@ -1,0 +1,18 @@
+--------------------------------------------------------------------------------------------------------------------------
+Tipologia Malware:
+KeyLogger
+
+Evidenziato chiamate su screenshot
+------Descrizione---------------------------------------------------------------------------------------------------------
+
+.text: 00401010 push eax //push sullo stack eax
+.text: 00401014 push ebx //push sullo stack ebx
+.text: 00401018 push ecx //push sullo stack ecx
+.text: 0040101C push WH_Mouse ;hook to mouse // push sullo di del valore WH_MOUSE
+.text: 0040101F call SetWindowsHook() // chiamata della funzione per catturare gli event log del mouse
+.text: 00401040 XOR ECX,ECX // riporta a 0 bit il valore di ecx
+.text: 00401044 mov ecx, [EDI] EDI = «path to startup_folder_system» punta alla cartella di startup di windows
+.text: 00401048 mov edx, [ESI] ESI = path_to_Malware // punta alla path del malware
+.text: 0040104C push ecx ; destinationfolder //push sullo stack
+.text: 0040104F push edx ; file to be copied //push sullo stack
+.text: 00401054 call CopyFile(); // copia il file
